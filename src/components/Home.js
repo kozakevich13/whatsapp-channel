@@ -49,7 +49,7 @@ function Home(data) {
         <div className="d-flex">
             <div className="w-75 p-3 ">
                 <div className="border-bottom bg-light bg-gradient p-3">
-                    {t("conect_facebook")}
+                    {t("whatsapp_bus_id")}
                 </div>
                 <div>
                     <input 

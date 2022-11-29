@@ -17,6 +17,7 @@ const resources = {
       "add_permission": "Add Permission",
       "add_account": "Add account",
       "connect_fb_account": "Connect to your Facebook account",
+      "whatsapp_bus_id": "Enter your ID of a WhatsApp Business Account",
     }
   },
   
