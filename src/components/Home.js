@@ -1,33 +1,24 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 
 
 
-function Home(data, load) {
+function Home(data) {
     const { t } = useTranslation();
-    const arrayPermission = [
-        { name: "public_profile"},
-        { name: "pages_show_list"},
-      ];
-
     const [picture, setPicture] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png')
-    const [userId, setUserId] = useState(0)
     const [access_token, setAccses_token] = useState('')
     const [wsData, setWsData] = useState('')
+    const [whatsAppBusId, setWhatsAppBusId] = useState('')
 
-    let whats_app_business_account_id = "100850302872958"
-
-   
     useEffect(() => {
       setPicture(data.data.picture.data.url)  
-      setUserId(data.data.id)
       setAccses_token(data.data.accessToken)
     },[]);
 
     async function fetchData() {
-        const url = `https://graph.facebook.com/${userId}?access_token=${access_token}`;
+        const url = `https://graph.facebook.com/${whatsAppBusId}?access_token=${access_token}`;
 
         fetch(url, {
             method: "GET",
@@ -43,18 +34,11 @@ function Home(data, load) {
             .catch(function(error) {
             });
     }
-    useEffect(() => {
-        fetchData()
-    }, [access_token]);
 
     const disconnect = () => {
         sessionStorage.setItem('data', JSON.stringify(''));
         window.location.reload()
     }
-
-    console.log(data)
-    console.log(whats_app_business_account_id)
-
 
   return (
     <>
@@ -68,7 +52,14 @@ function Home(data, load) {
                     {t("conect_facebook")}
                 </div>
                 <div>
-                    <input></input>
+                    <input 
+                        value={whatsAppBusId} 
+                        onChange={e => setWhatsAppBusId(e.target.value)} 
+                        type="text" className="form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default" 
+                    />
+                    <button className="btn btn-warning" onClick={()=>{fetchData()}}>Get data</button>
                 </div>
                 <div className="d-flex">
                  <p>name: </p>
